@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">DSH Inspector Plugins</title>
+  <desc id="desc">Understand the Agent loop with Flow Lens. Inspect original HTTP and SSE with LLM Wire Debug. Independent community plugins.</desc>
+  <rect width="1280" height="360" rx="20" fill="#0b1020"/>
+  <path d="M0 275H1280M0 307H1280M0 339H1280M780 0V360M860 0V360M940 0V360M1020 0V360M1100 0V360M1180 0V360" stroke="#17223b"/>
+  <rect x="48" y="35" width="290" height="29" rx="14" fill="#16283d"/>
+  <circle cx="65" cy="49" r="4" fill="#5eead4"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <text x="79" y="54" font-size="12" font-weight="600" letter-spacing="1.2" fill="#99dbe9">COMMUNITY · DEEPSEEK HARNESS</text>
+    <text x="48" y="127" font-size="55" font-weight="750" letter-spacing="-2" fill="#f1f5ff">DSH Inspector Plugins</text>
+    <text x="50" y="175" font-size="24" fill="#b5c5e1">Understand the loop. Inspect the wire.</text>
+    <text x="50" y="210" font-size="17" fill="#7f94b5">From effective prompts to raw model responses.</text>
+    <rect x="49" y="255" width="167" height="43" rx="10" fill="#153247" stroke="#2f7186"/>
+    <text x="70" y="282" font-size="17" font-weight="600" fill="#83e8f5">Flow Lens</text>
+    <rect x="230" y="255" width="207" height="43" rx="10" fill="#251f44" stroke="#5e488e"/>
+    <text x="251" y="282" font-size="17" font-weight="600" fill="#c7b5ff">LLM Wire Debug</text>
+    <text x="50" y="331" font-size="12" letter-spacing="2" fill="#7b91b2">LEARN / INSPECT / DEBUG</text>
+  </g>
+  <path d="M906 107V162H1012M1052 182V235H1155M1003 182V235H905" stroke="#426686" stroke-width="3" fill="none"/>
+  <rect x="831" y="67" width="151" height="49" rx="12" fill="#143247" stroke="#3b9fb8"/>
+  <rect x="960" y="142" width="154" height="51" rx="12" fill="#272341" stroke="#9176ce"/>
+  <rect x="837" y="231" width="137" height="49" rx="12" fill="#15352f" stroke="#438c79"/>
+  <rect x="1091" y="231" width="137" height="49" rx="12" fill="#242c45" stroke="#6476a4"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="600" text-anchor="middle">
+    <text x="906" y="98" fill="#9debf6">PROMPT</text>
+    <text x="1037" y="174" fill="#d7c8ff">MODEL</text>
+    <text x="905" y="262" fill="#97e5cd">TOOLS</text>
+    <text x="1159" y="262" fill="#b6caf4">RESPONSE</text>
+  </g>
+  <circle cx="1190" cy="95" r="3" fill="#38bdf8"/>
+  <circle cx="805" cy="198" r="3" fill="#5eead4"/>
+</svg>
