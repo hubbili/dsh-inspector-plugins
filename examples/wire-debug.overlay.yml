@@ -1,0 +1,6 @@
+# Explicitly opt in to saving credentials and private prompts on this machine.
+- id: llm-wire-debug
+  config:
+    allowSecrets: true
+    outputDirectory: !!js process.env.DSH_HOME + '/llm-wire-traces'
+    translatePrompt: false

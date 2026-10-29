@@ -1,0 +1,209 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`exposes captured text, public reasoning fields, proposed calls, usage, and parse failures 1`] = `
+{
+  "blocks": [
+    {
+      "index": 0,
+      "text": "Translated text.",
+      "type": "text",
+    },
+  ],
+  "kind": "response",
+  "metadata": {
+    "eventCount": 3,
+    "model": "fixture-model",
+    "protocol": "messages",
+    "transport": "sse",
+    "version": 1,
+  },
+  "reasoning": "Fixture public reasoning field.",
+  "stopReason": "tool_use",
+  "text": "Translated text.",
+  "toolCalls": [
+    {
+      "arguments": {
+        "path": "translation.md",
+      },
+      "id": "fixture-call",
+      "name": "write_file",
+      "raw": {
+        "arguments": {
+          "path": "translation.md",
+        },
+        "argumentsRaw": "{"path":"translation.md"}",
+        "id": "fixture-call",
+        "name": "write_file",
+      },
+    },
+  ],
+  "usage": {
+    "input_tokens": 12,
+    "output_tokens": 30,
+  },
+  "warnings": {
+    "parseErrors": [
+      "Fixture incomplete SSE",
+    ],
+    "providerErrors": [
+      {
+        "message": "Fixture service warning",
+      },
+    ],
+    "streamEndObserved": false,
+    "truncated": true,
+  },
+}
+`;
+
+exports[`reads Messages system blocks and native tool schemas without requiring Chat fields 1`] = `
+{
+  "kind": "request",
+  "messages": [
+    {
+      "content": [
+        {
+          "text": "Keep formatting.",
+          "type": "text",
+        },
+      ],
+      "fields": {},
+      "role": "user",
+    },
+  ],
+  "metadata": {},
+  "model": "fixture-messages-model",
+  "parameters": {
+    "max_tokens": 4096,
+    "thinking": {
+      "type": "enabled",
+    },
+  },
+  "system": [
+    {
+      "text": "Translate faithfully.",
+      "type": "text",
+    },
+  ],
+  "tools": [
+    {
+      "description": "Save the translation.",
+      "name": "write_file",
+      "raw": {
+        "description": "Save the translation.",
+        "input_schema": {
+          "properties": {
+            "content": {
+              "type": "string",
+            },
+            "path": {
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "name": "write_file",
+      },
+      "schema": {
+        "properties": {
+          "content": {
+            "type": "string",
+          },
+          "path": {
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+    },
+  ],
+}
+`;
+
+exports[`separates Chat Completions messages, tool definitions, parameters, and journal metadata 1`] = `
+{
+  "kind": "request",
+  "messages": [
+    {
+      "content": "Translate without changing code identifiers.",
+      "fields": {},
+      "role": "system",
+    },
+    {
+      "content": "Translate the following document.",
+      "fields": {},
+      "role": "user",
+    },
+    {
+      "content": undefined,
+      "fields": {
+        "tool_calls": [
+          {
+            "function": {
+              "arguments": "{"path":"notes.md"}",
+              "name": "read_file",
+            },
+            "id": "fixture-call",
+            "type": "function",
+          },
+        ],
+      },
+      "role": "assistant",
+    },
+    {
+      "content": "Document text.",
+      "fields": {
+        "tool_call_id": "fixture-call",
+      },
+      "role": "tool",
+    },
+  ],
+  "metadata": {
+    "custom_extension": {
+      "unchanged": "synthetic-unredacted-value",
+    },
+    "dsh_session_log": {
+      "journal": [
+        "fixture event 1",
+        "fixture event 2",
+      ],
+      "session": "fixture-session",
+    },
+  },
+  "model": "fixture-model",
+  "parameters": {
+    "stream": true,
+    "temperature": 0.5,
+  },
+  "system": undefined,
+  "tools": [
+    {
+      "description": "Read a document.",
+      "name": "read_file",
+      "raw": {
+        "function": {
+          "description": "Read a document.",
+          "name": "read_file",
+          "parameters": {
+            "properties": {
+              "path": {
+                "type": "string",
+              },
+            },
+            "type": "object",
+          },
+        },
+        "type": "function",
+      },
+      "schema": {
+        "properties": {
+          "path": {
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+    },
+  ],
+}
+`;

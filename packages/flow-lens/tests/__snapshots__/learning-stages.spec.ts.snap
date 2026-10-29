@@ -1,0 +1,142 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`beginner learning stages > includes real lifecycle-only rejected turns without pretending a step or request happened 1`] = `
+{
+  "durationMs": 1,
+  "prompt": null,
+  "status": "interrupted",
+  "steps": [],
+  "turn": 2,
+}
+`;
+
+exports[`beginner learning stages > pins the reading guide and evidence selection without hook execution claims 1`] = `
+[
+  {
+    "explanation": "Loop 领取队列消息并组装 Prompt，再经 agent/pre-step 决定输入是否进入步骤。user/message 是后续准入完成后提交的事实，不是原始入队通知。",
+    "hooks": [
+      "agent/pre-step",
+    ],
+    "nodeId": undefined,
+    "question": "用户说了什么？哪些消息进入模型历史？",
+    "records": [],
+    "sources": [
+      {
+        "path": "packages/core/agent-loop/src/agent.ts",
+        "symbol": "preStep() / turn()",
+      },
+    ],
+    "title": "输入",
+  },
+  {
+    "explanation": "SystemPrompt 收集片段、变量、上下文和工具。Loop 在步骤中提交生效的 System 文本与消息；这里展示的是请求快照，不是每个片段提供方的调用过程。",
+    "hooks": [
+      "system-prompt/assemble",
+      "ctx.systemPrompt.section()",
+    ],
+    "nodeId": "prompt:20",
+    "question": "模型实际使用了哪些提示词和工具定义？",
+    "records": [
+      "6:system/message",
+      "7:request/header",
+    ],
+    "sources": [
+      {
+        "path": "packages/core/system-prompt/src/index.ts",
+        "symbol": "SystemPrompt.assemble() / renderPrompt()",
+      },
+      {
+        "path": "packages/core/agent-loop/src/agent.ts",
+        "symbol": "preStep() / step()",
+      },
+    ],
+    "title": "Prompt",
+  },
+  {
+    "explanation": "agent/request 解析调用配置，prepareCall 绑定 Adapter，buildRequest 从会话日志派生冻结请求，再进入流式模型调用。失败后的重试可发生在同一个步骤内。",
+    "hooks": [
+      "agent/request",
+      "llm/stream",
+    ],
+    "nodeId": "request:20",
+    "question": "请求发给哪个模型？为什么同一步有多次尝试？",
+    "records": [
+      "7:request/header",
+    ],
+    "sources": [
+      {
+        "path": "packages/core/agent-loop/src/agent.ts",
+        "symbol": "prepareRequest() / buildRequest() / step()",
+      },
+      {
+        "path": "packages/llm/llm/src/index.ts",
+        "symbol": "LlmRuntime.prepareCall() / stream()",
+      },
+    ],
+    "title": "模型请求",
+  },
+  {
+    "explanation": "流片段逐步更新响应。完整响应或失败尝试落盘后，记录正文、公开的 reasoning、用量与工具调用。工具调用是模型提出的请求，不代表工具已经成功执行。",
+    "hooks": [
+      "agent/assistant-stream",
+    ],
+    "nodeId": "response:21",
+    "question": "模型返回了正文，还是要求调用工具？",
+    "records": [
+      "8:assistant/message",
+    ],
+    "sources": [
+      {
+        "path": "packages/core/agent-loop/src/assistant-stream.ts",
+        "symbol": "AssistantStreamAttempt",
+      },
+      {
+        "path": "packages/core/agent-loop/src/agent.ts",
+        "symbol": "step()",
+      },
+    ],
+    "title": "模型响应",
+  },
+  {
+    "explanation": "Loop 将工具调用交给工具注册表，依次经过执行前策略、执行包装与结果处理，再提交结果供模型后续读取。多个工具分支可能有时间重叠。",
+    "hooks": [
+      "tools/pre-execute",
+      "tools/execute",
+      "tools/post-execute",
+    ],
+    "nodeId": undefined,
+    "question": "模型请求了哪些工具？参数与结果在哪里？",
+    "records": [],
+    "sources": [
+      {
+        "path": "packages/core/agent-loop/src/tool-calls.ts",
+        "symbol": "executeToolCalls()",
+      },
+      {
+        "path": "packages/core/tools/src/index.ts",
+        "symbol": "ToolRuntime.execute()",
+      },
+    ],
+    "title": "工具执行",
+  },
+  {
+    "explanation": "工具结果通常需要模型继续回答，新输入也可能触发后续步骤。没有欠答和新输入时进行结束检查；拒绝、取消和失败也可以结束本轮。",
+    "hooks": [
+      "agent/turn-stopping",
+    ],
+    "nodeId": undefined,
+    "question": "为什么要再请求一次模型，或者本轮结束了？",
+    "records": [
+      "9:step/end",
+      "10:turn/end",
+    ],
+    "sources": [
+      {
+        "path": "packages/core/agent-loop/src/agent.ts",
+        "symbol": "turn()",
+      },
+    ],
+    "title": "继续 / 结束",
+  },
+]
+`;

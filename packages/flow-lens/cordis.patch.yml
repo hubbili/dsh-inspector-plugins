@@ -1,0 +1,4 @@
+# Add Flow Lens as a separate conversation view without replacing Trajectory.
+- insert:
+    - id: ui-flow-lens
+      name: 'dsh-plugin-flow-lens'

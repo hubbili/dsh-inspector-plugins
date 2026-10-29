@@ -1,0 +1,276 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`extension reference and related evidence > pins the Chinese extension descriptions and explicit evidence labels 1`] = `
+[
+  {
+    "description": "Agent 创建时初始化。系统等待初始化完成后才处理队列，失败可回滚创建。",
+    "id": "agent/created",
+    "mode": "Serial · 顺序等待",
+    "phase": "Agent 初始化",
+    "relatedRecords": [],
+  },
+  {
+    "description": "贡献静态或动态 System Prompt 片段，按顺序组装；system/message 不记录片段贡献者。",
+    "id": "ctx.systemPrompt.section()",
+    "mode": "注册入口",
+    "phase": "Prompt / 上下文组装",
+    "relatedRecords": [
+      "4:system/message",
+    ],
+  },
+  {
+    "description": "注册 {{变量}} 的取值来源，组装时求值；变量提供方没有独立调用记录。",
+    "id": "ctx.systemPrompt.variable()",
+    "mode": "注册入口",
+    "phase": "Prompt / 上下文组装",
+    "relatedRecords": [],
+  },
+  {
+    "description": "在组装阶段调整片段、上下文、工具和变量。最终生效的 complete 提示词规则仍会被执行。",
+    "id": "system-prompt/assemble",
+    "mode": "Waterfall · 可拦截",
+    "phase": "Prompt / 上下文组装",
+    "relatedRecords": [
+      "4:system/message",
+      "6:request/header",
+    ],
+  },
+  {
+    "description": "inject 注入上下文并等待后续唤醒；steer 补充需要继续处理的输入。user/message 本身不证明调用了哪一种方法。",
+    "id": "agent.inject() / agent.steer()",
+    "mode": "上下文输入",
+    "phase": "Prompt / 上下文组装",
+    "relatedRecords": [
+      "5:user/message",
+    ],
+  },
+  {
+    "description": "Prompt 已组装、消息已领取后，允许、改写或拒绝进入模型步骤；不是消息入队前的审核接口。",
+    "id": "agent/pre-step",
+    "mode": "Waterfall · 可拦截",
+    "phase": "输入准入",
+    "relatedRecords": [
+      "3:step/start",
+      "5:user/message",
+      "11:turn/end",
+    ],
+  },
+  {
+    "description": "step/start 后调整模型调用配置，不能修改消息正文。关联请求头用于检查最终路由与参数。",
+    "id": "agent/request",
+    "mode": "Waterfall · 可拦截",
+    "phase": "模型路由与调用",
+    "relatedRecords": [
+      "6:request/header",
+    ],
+  },
+  {
+    "description": "处理模型请求失败，决定是否重试。assistant/attempt 不意味着一定执行了重试。",
+    "id": "agent/request-error",
+    "mode": "Waterfall · 可拦截",
+    "phase": "模型路由与调用",
+    "relatedRecords": [],
+  },
+  {
+    "description": "包装流式模型调用；Loop 构造的完整请求被冻结，只能读取，不能修改。",
+    "id": "llm/stream",
+    "mode": "Waterfall · 可拦截",
+    "phase": "模型路由与调用",
+    "relatedRecords": [
+      "9:assistant/message",
+    ],
+  },
+  {
+    "description": "观察响应的开始、增量和结束。实时片段落盘后由完整响应或失败尝试记录替代。",
+    "id": "agent/assistant-stream",
+    "mode": "Emit · 观察事件",
+    "phase": "模型路由与调用",
+    "relatedRecords": [
+      "9:assistant/message",
+    ],
+  },
+  {
+    "description": "注册模型可调用的工具和参数 Schema。请求头能展示有效工具目录，但不证明调用了某个工具。",
+    "id": "ctx.tools.register()",
+    "mode": "注册入口",
+    "phase": "工具注册与执行",
+    "relatedRecords": [
+      "6:request/header",
+    ],
+  },
+  {
+    "description": "工具执行前放行、拒绝、取消或要求审批。tool/call 和 tool/result 不证明某个审核监听器已经执行。",
+    "id": "tools/pre-execute",
+    "mode": "Waterfall · 可拦截",
+    "phase": "工具注册与执行",
+    "relatedRecords": [
+      "7:tool/call",
+      "8:tool/result",
+    ],
+  },
+  {
+    "description": "包装工具执行过程，例如计时、超时与重试；调用身份不允许改写，不能解除调用方取消。",
+    "id": "tools/execute",
+    "mode": "Waterfall · 可拦截",
+    "phase": "工具注册与执行",
+    "relatedRecords": [
+      "7:tool/call",
+      "8:tool/result",
+    ],
+  },
+  {
+    "description": "接受、替换、补充或阻止已返回的工具结果；不能撤销工具已产生的外部副作用。",
+    "id": "tools/post-execute",
+    "mode": "Waterfall · 可拦截",
+    "phase": "工具注册与执行",
+    "relatedRecords": [
+      "8:tool/result",
+    ],
+  },
+  {
+    "description": "模型已无欠答且没有新输入时，检查是否补充 steering 继续执行；turn/end 不证明监听器作出了什么决策。",
+    "id": "agent/turn-stopping",
+    "mode": "Serial · 顺序等待",
+    "phase": "本轮结束检查",
+    "relatedRecords": [
+      "11:turn/end",
+    ],
+  },
+  {
+    "description": "观察消息入队、领取和丢弃；agent/inbox/spliced 是持久化队列变化，不能用通知撤销已经发生的入队。",
+    "id": "agent/inbox/*",
+    "mode": "Emit · 观察事件",
+    "phase": "状态与队列观察",
+    "relatedRecords": [
+      "2:agent/inbox/spliced",
+    ],
+  },
+  {
+    "description": "观察 Agent 运行状态和错误。本轮结束记录只提供相关事实，不等于 agent/error 回调记录。",
+    "id": "agent/status / agent/error",
+    "mode": "Emit · 观察事件",
+    "phase": "状态与队列观察",
+    "relatedRecords": [
+      "1:turn/start",
+      "11:turn/end",
+    ],
+  },
+  {
+    "description": "观察最终工具结果或工具目录变化；这些通知不提供执行前的拦截能力。",
+    "id": "tools/result / tools/change",
+    "mode": "Emit · 观察事件",
+    "phase": "状态与队列观察",
+    "relatedRecords": [
+      "6:request/header",
+      "8:tool/result",
+    ],
+  },
+  {
+    "description": "接入模型供应商 Adapter。请求头可展示有效模型路由，但不列出全部已注册 Adapter。",
+    "id": "ctx.llm",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [
+      "6:request/header",
+    ],
+  },
+  {
+    "description": "提供文件系统能力或添加 fs/* 策略；不能从普通工具名称推断实际文件系统 Provider。",
+    "id": "ctx.fs / fs/*",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册 Shell Backend，替换工具背后的执行环境。",
+    "id": "ctx.shell",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册持久终端 Backend，与终端工具配合提供长期运行的交互进程。",
+    "id": "ctx.terminals",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "提供进程隔离 Backend；终端输出不能证明具体沙箱策略已经生效。",
+    "id": "ctx.sandbox",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "提供后台任务注册、收集和停止能力。",
+    "id": "ctx.jobs",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册由人直接调用的命令，不必先让模型产生工具调用。",
+    "id": "ctx.commands",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册可信外部事件规则和适配器，以触发 Workspace 会话。",
+    "id": "ctx.webhookRuntime",
+    "mode": "注册入口",
+    "phase": "底层能力提供方",
+    "relatedRecords": [],
+  },
+  {
+    "description": "实现 Session 的 create、open、stat、list 和 export，替换存储后端。",
+    "id": "SessionPersistence",
+    "mode": "注册入口",
+    "phase": "持久化与数据投影",
+    "relatedRecords": [],
+  },
+  {
+    "description": "声明并记录插件自己的持久化事实，监听 session/event 读取已提交记录；不能将实时钩子事件当成已持久化事实。",
+    "id": "SessionEventMap / session/event",
+    "mode": "Emit · 观察事件",
+    "phase": "持久化与数据投影",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册投影，将持久化事件增量计算为 Host 或 Web 可读取的状态。",
+    "id": "ctx.sessionProjections",
+    "mode": "注册入口",
+    "phase": "持久化与数据投影",
+    "relatedRecords": [],
+  },
+  {
+    "description": "注册对话节点定义和对应渲染器，展示自定义结果或审核卡片。",
+    "id": "ConversationNodeDefinition + Renderer",
+    "mode": "注册入口",
+    "phase": "Web 界面注册",
+    "relatedRecords": [],
+  },
+  {
+    "description": "在 conversation.view 注册独立 Tab；执行图本身就是这个入口的消费者。",
+    "id": "ctx.slots · conversation.view",
+    "mode": "注册入口",
+    "phase": "Web 界面注册",
+    "relatedRecords": [],
+  },
+  {
+    "description": "组合整个应用的 Bundle、插件与 Provider，并配置 Preset 扫描目录及默认值。",
+    "id": "Profile",
+    "mode": "配置组合",
+    "phase": "Profile / Preset 组合",
+    "relatedRecords": [],
+  },
+  {
+    "description": "组合某类 Agent 的 Persona、工具与插件。已有会话仍使用已经挂载的 Preset 版本。",
+    "id": "Preset",
+    "mode": "配置组合",
+    "phase": "Profile / Preset 组合",
+    "relatedRecords": [],
+  },
+]
+`;

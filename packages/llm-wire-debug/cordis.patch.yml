@@ -1,0 +1,8 @@
+# Mounting this layer fails until allowSecrets is explicitly acknowledged.
+- insert:
+    - id: llm-wire-debug
+      name: dsh-plugin-llm-wire-debug
+      config:
+        allowSecrets: false
+        outputDirectory: !!js process.env.DSH_HOME + '/llm-wire-traces'
+        translatePrompt: false

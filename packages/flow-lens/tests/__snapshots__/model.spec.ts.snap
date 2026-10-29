@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`deriveFlowMap > builds request, response, and overlapping tool branches from the shared snapshot 1`] = `
+{
+  "prompts": [
+    {
+      "available": true,
+      "config": {
+        "model": "deepseek-chat",
+        "provider": "deepseek",
+      },
+      "data": {
+        "change": undefined,
+        "prompt": {
+          "config": {
+            "model": "deepseek-chat",
+            "provider": "deepseek",
+          },
+          "system": "Be precise.",
+          "tools": [],
+        },
+      },
+      "durationMs": null,
+      "id": "prompt:2",
+      "kind": "prompt",
+      "status": "complete",
+      "system": "Be precise.",
+      "tools": [],
+    },
+  ],
+  "request": {
+    "attempt": 1,
+    "completedAt": 1400,
+    "data": {
+      "completedAt": 1400,
+      "prompt": {
+        "config": {
+          "model": "deepseek-chat",
+          "provider": "deepseek",
+        },
+        "system": "Be precise.",
+        "tools": [],
+      },
+      "purpose": "assistant",
+      "startSeq": 2,
+      "startedAt": 1100,
+      "status": "complete",
+      "step": 1,
+      "turn": 1,
+      "usage": {
+        "inputTokens": 10,
+        "outputTokens": 5,
+        "reasoningTokens": 2,
+      },
+    },
+    "durationMs": 300,
+    "id": "request:2",
+    "kind": "request",
+    "model": "deepseek-chat",
+    "provider": "deepseek",
+    "startedAt": 1100,
+    "status": "complete",
+    "systemLength": 11,
+    "toolSchemaCount": 0,
+    "usage": {
+      "input": 10,
+      "output": 5,
+      "reasoning": 2,
+    },
+  },
+}
+`;

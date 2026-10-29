@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`prompt display > preserves CRLF and blank lines within fenced code 1`] = `
+[
+  {
+    "kind": "heading",
+    "line": 1,
+    "text": "# Rules
+
+",
+  },
+  {
+    "kind": "paragraph",
+    "line": 3,
+    "text": "Use \`read\` at /workspace/src.
+
+",
+  },
+  {
+    "kind": "code",
+    "line": 5,
+    "text": "\`\`\`json
+{
+
+  "path": "{{path}}"
+}
+\`\`\`
+",
+  },
+  {
+    "kind": "paragraph",
+    "line": 11,
+    "text": "Next paragraph.",
+  },
+]
+`;

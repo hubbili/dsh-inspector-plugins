@@ -1,0 +1,16 @@
+node_modules/
+lib/
+*.tsbuildinfo
+*.tgz
+artifacts/
+.env
+.env.*
+!.env.example
+.npmrc
+traces/
+llm-wire-traces/
+logs/
+.dsh/
+dev-profile/
+.idea/
+.DS_Store
